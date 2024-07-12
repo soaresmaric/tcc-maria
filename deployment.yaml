@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: flask-coldstart-app
-        image: registry/soaresmaric/tcc-maria:latest
+        image: soaresmaric/tcc-maria:latest
         ports:
         - containerPort: 5000
