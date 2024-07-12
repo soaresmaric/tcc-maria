@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-coldstart-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: flask-coldstart-app
+  template:
+    metadata:
+      labels:
+        app: flask-coldstart-app
+    spec:
+      nodeSelector:
+        node-role.kubernetes.io/worker: ""
+      containers:
+      - name: flask-coldstart-app
+        image: 192.168.58.2:32000/flask-coldstart-app:latest
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-coldstart-app-service
+spec:
+  selector:
+    app: flask-coldstart-app
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 5000
+    - name: metrics
+      protocol: TCP
+      port: 9100
+      targetPort: 9100
+  type: LoadBalancer
