@@ -4,10 +4,9 @@ metadata:
   name: tcc-maria-service
 spec:
   selector:
-    app: tcc-maria
+    app: flask-coldstart-app
   ports:
     - protocol: TCP
       port: 80
       targetPort: 5000
-      nodePort: 30007
   type: NodePort
