@@ -11,9 +11,13 @@ spec:
     metadata:
       labels:
         app: flask-coldstart-app
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '9100'
     spec:
       containers:
       - name: flask-coldstart-app
-        image: 192.168.58.2:5000/tcc-maria:latest
+        image: soaresmaric/tcc-maria:latest
         ports:
         - containerPort: 5000
+        - containerPort: 9100

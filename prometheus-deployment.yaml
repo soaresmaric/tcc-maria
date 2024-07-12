@@ -26,12 +26,12 @@ spec:
           mountPath: /etc/prometheus/
         - name: prometheus-storage-volume
           mountPath: /prometheus/
-  volumes:
-  - name: prometheus-config-volume
-    configMap:
-      name: prometheus-config
-  - name: prometheus-storage-volume
-    emptyDir: {}
+      volumes:
+      - name: prometheus-config-volume
+        configMap:
+          name: prometheus-config
+      - name: prometheus-storage-volume
+        emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
