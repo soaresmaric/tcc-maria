@@ -16,3 +16,4 @@ datadog:
   containers:
     logs:
       enabled: true
+   hostname: "custom-hostname"
