@@ -16,4 +16,4 @@ datadog:
   containers:
     logs:
       enabled: true
-   hostname: "custom-hostname"
+  hostname: "tcc-maria-k8s-node-1"  # Usando o nome do nó Kubernetes como hostname
