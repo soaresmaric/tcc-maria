@@ -1,23 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask-coldstart-app
+  name: flask-api
+  namespace: default
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: flask-coldstart-app
+      app: flask-api
   template:
     metadata:
       labels:
-        app: flask-coldstart-app
-      annotations:
-        prometheus.io/scrape: 'true'
-        prometheus.io/port: '9100'
+        app: flask-api
     spec:
       containers:
-      - name: flask-coldstart-app
-        image: soaresmaric/tcc-maria:latest
+      - name: flask-api
+        image: your-flask-api-image
         ports:
         - containerPort: 5000
-        - containerPort: 9100
