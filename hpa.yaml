@@ -1,12 +1,36 @@
-apiVersion: autoscaling/v1
-kind: HorizontalPodAutoscaler
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: flask-coldstart-app-hpa
+  name: cluster-autoscaler
+  namespace: kube-system
+  labels:
+    k8s-app: cluster-autoscaler
+    k8s-addon: cluster-autoscaler
 spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: flask-coldstart-app
-  minReplicas: 1
-  maxReplicas: 10
-  targetCPUUtilizationPercentage: 50
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: cluster-autoscaler
+  template:
+    metadata:
+      labels:
+        k8s-app: cluster-autoscaler
+        k8s-addon: cluster-autoscaler
+    spec:
+      containers:
+      - name: cluster-autoscaler
+        image: k8s.gcr.io/cluster-autoscaler/cluster-autoscaler:v1.18.0
+        command:
+        - /cluster-autoscaler
+        - --cloud-provider=<your-cloud-provider>
+        - --namespace=kube-system
+        - --scale-down-delay-after-add=10m
+        - --scale-down-delay-after-delete=10m
+        - --scale-down-delay-after-failure=3m
+        - --scale-up-from-zero=true
+        env:
+        - name: CLUSTER_NAME
+          value: "<your-cluster-name>"
+        - name: AWS_REGION
+          value: "<your-region>"
+        # Define other required environment variables
