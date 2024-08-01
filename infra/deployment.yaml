@@ -1,20 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask-api
-  namespace: default
+  name: iobound-deployment
+  labels:
+    app: iobound
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: flask-api
+      app: iobound
   template:
     metadata:
       labels:
-        app: flask-api
+        app: iobound
     spec:
       containers:
-      - name: flask-api
-        image: soaresmaric/tcc-maria
-        ports:
-        - containerPort: 5000
+        - name: iobound-container
+          image: tcc-ionbound:latest
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1Gi"
+              cpu: "1"
