@@ -25,9 +25,6 @@ WORKDIR /app
 # Copie o arquivo JAR construído para o diretório de trabalho
 COPY --from=build /app/target/*.jar ./my-java-app.jar
 
-# Copie os recursos necessários (ajuste conforme necessário)
-COPY src/main/resources/testfile.txt ./testfile.txt
-
 # Exponha a porta na qual sua aplicação irá rodar
 EXPOSE 8080
 
