@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: iobound-container
-          image: tcc-ionbound:latest
+          image: soaresmaric/tcc-iobound:latest
           ports:
             - containerPort: 8080
           resources:
