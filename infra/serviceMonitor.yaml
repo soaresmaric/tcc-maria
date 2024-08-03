@@ -10,7 +10,5 @@ spec:
       app: iobound
   endpoints:
     - port: http
+      interval: 30s
       path: /actuator/prometheus
-  namespaceSelector:
-    matchNames:
-      - default
