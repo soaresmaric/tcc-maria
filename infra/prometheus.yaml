@@ -6,13 +6,16 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 
-  - job_name: 'iobound-service'
+  - job_name: 'kubernetes'
     kubernetes_sd_configs:
       - role: endpoints
     relabel_configs:
-      - source_labels: [__meta_kubernetes_service_label_app, __meta_kubernetes_endpoint_port_name]
+      - source_labels: [__meta_kubernetes_service_label_app]
         action: keep
-        regex: iobound;http
+        regex: iobound
+      - source_labels: [__meta_kubernetes_endpoint_port_name]
+        action: keep
+        regex: http
       - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_service_name, __meta_kubernetes_pod_name]
         target_label: instance
         replacement: $1/$2/$3
